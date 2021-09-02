@@ -24,7 +24,7 @@ client.loop_start()
 
 # Publish data
 for count, line in enumerate(Lines):
-    client.publish(topic="none/test-device/telemetry", payload=line.strip(), qos=0, retain=False)
+    client.publish(topic="none/test-device/telemetry", payload=line.strip())
     if count >= 10:
         break
 
