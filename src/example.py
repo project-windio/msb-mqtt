@@ -15,8 +15,8 @@ print("Successfully printed the logfile.")
 
 device_id = "test-device"
 client = mqtt.Client()
-client.tls_set_context(mqtt_ssl.create_default_context())
-client.username_pw_set(user, password)
+#client.tls_set_context(mqtt_ssl.create_default_context())
+#client.username_pw_set(user, password)
 client.connect(url, port)
 client.tls_set_context(mqtt_ssl.create_default_context())
 
@@ -24,10 +24,10 @@ client.loop_start()
 
 # Publish data
 for count, line in enumerate(Lines):
-    client.publish(topic="none/test-device/telemetry", payload=line.strip())
+    client.publish(topic="encyclopedia/windio", payload=line.strip())
     if count >= 10:
         break
 
 client.loop_stop()
 
-client.close()
+#client.close()
