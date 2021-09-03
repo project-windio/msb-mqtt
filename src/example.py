@@ -73,23 +73,26 @@ for count, line in enumerate(Lines):
         break
 print("Successfully printed the logfile.")
 
+client = mqtt.Client()
+#client.tls_set_context(mqtt_ssl.create_default_context())
+client.username_pw_set(user, password)
+client.connect(url, port)
+client.tls_set_context(mqtt_ssl.create_default_context())
+
 # Set ID according to the WindIO specification.
 edge_id = "urn_uni-bremen_bik_wio_0_1_msb_0001"
 device_id = "urn_uni-bremen_bik_wio_1_0_imu_0001"
-topic = "ppmpv3/DDATA/WT01/" + edge_id + "/" + device_id
+topic = "ppmpv3/WT01/DDATA/" + edge_id + "/" + device_id
 
-client = mqtt.Client()
-#client.tls_set_context(mqtt_ssl.create_default_context())
-#client.username_pw_set(user, password)
-client.connect(url, port)
-client.tls_set_context(mqtt_ssl.create_default_context())
+# As standardized topic does not work yet, we use a contact topic.
+topic = "3/" + edge_id + "/telemetry"
 
 client.loop_start()
 
 # Publish data
 for count, line in enumerate(Lines):
     payload = log_to_mqtt_payload(line.strip())
-    client.publish(topic="encyclopedia/windio", payload=payload)
+    client.publish(topic=topic, payload="count " + str(count) + " " + payload)
     if count >= 10:
         break
 
