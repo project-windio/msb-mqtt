@@ -2,7 +2,7 @@ import paho.mqtt.client as mqtt
 from paho.mqtt.client import ssl as mqtt_ssl
 import json
 
-from login_details import url, port, user, password
+from login_details import url, port, user, password, topic
 
 def log_to_mqtt_payload(log_line, id="urn:uni-bremen:bik:wio:0:1:msb:0001"):
     """
@@ -74,18 +74,11 @@ for count, line in enumerate(Lines):
 print("Successfully printed the logfile.")
 
 client = mqtt.Client()
-#client.tls_set_context(mqtt_ssl.create_default_context())
 client.username_pw_set(user, password)
 client.connect(url, port)
 client.tls_set_context(mqtt_ssl.create_default_context())
 
-# Set ID according to the WindIO specification.
-edge_id = "urn_uni-bremen_bik_wio_0_1_msb_0001"
-device_id = "urn_uni-bremen_bik_wio_1_0_imu_0001"
-topic = "ppmpv3/WT01/DDATA/" + edge_id + "/" + device_id
 
-# As standardized topic does not work yet, we use a contact topic.
-topic = "3/" + edge_id + "/telemetry"
 
 client.loop_start()
 
