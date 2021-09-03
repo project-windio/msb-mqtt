@@ -6,7 +6,9 @@ from login_details import url, port, user, password
 
 def log_to_mqtt_payload(log_line, id="urn:uni-bremen:bik:wio:0:1:msb:0001"):
     """
-    Example from WindIO documentation:
+    Creates a WindIO MQTT payload based on a motion sensor box log file line.
+
+    Example for payload from WindIO documentation:
     {
     "content-spec": "urn:spec://eclipse.org/unide/measurement-message#v3",
     "device": {
