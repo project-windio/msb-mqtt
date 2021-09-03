@@ -1,7 +1,65 @@
 import paho.mqtt.client as mqtt
 from paho.mqtt.client import ssl as mqtt_ssl
+import json
 
 from login_details import url, port, user, password
+
+def log_to_mqtt_payload(log_line, id="urn:uni-bremen:bik:wio:0:1:msb:0001"):
+    """
+    Example from WindIO documentation:
+    {
+    "content-spec": "urn:spec://eclipse.org/unide/measurement-message#v3",
+    "device": {
+        "id": "urn:uni-bremen:bik:wio:1:1:wind:1234"
+    },
+    "measurements": [
+        {
+        "context": {
+            "temperature":  {
+            "unit": "Cel"
+            }
+        },
+        "ts": "2021-05-18T07:43:16.969Z",
+        "series": {
+            "time": [
+            0
+            ],
+            "temperature": [
+            35.4231
+            ]
+        }
+        }
+    ]
+    }
+
+    """
+    dict = {
+        "content-spec": "urn:spec://eclipse.org/unide/measurement-message#v3",
+        "device": {
+            "id": id
+        },
+        "measurements": [
+            {
+            "context": {
+                "acceleration in x":  {
+                "unit": "m s-2"
+                }
+            },
+            "ts": "2021-05-18T07:43:16.969Z",
+            "series": {
+                "time": [
+                0
+                ],
+                "temperature": [
+                log_line[9:28:1]
+                ]
+            }
+            }
+        ]
+    }
+    payload = json.dumps(dict, indent=4) 
+    return payload
+
 
 # Print log file.
 file1 = open("test.log", "r")
@@ -26,7 +84,8 @@ client.loop_start()
 
 # Publish data
 for count, line in enumerate(Lines):
-    client.publish(topic="encyclopedia/windio", payload=line.strip())
+    payload = log_to_mqtt_payload(line.strip())
+    client.publish(topic="encyclopedia/windio", payload=payload)
     if count >= 10:
         break
 
