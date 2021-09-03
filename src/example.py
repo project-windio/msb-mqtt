@@ -13,7 +13,9 @@ for count, line in enumerate(Lines):
         break
 print("Successfully printed the logfile.")
 
-device_id = "test-device"
+# Set ID according to the WindIO specification.
+device_id = "urn:uni-bremen:bik:wio:0:1:msb:0001"
+
 client = mqtt.Client()
 #client.tls_set_context(mqtt_ssl.create_default_context())
 #client.username_pw_set(user, password)
