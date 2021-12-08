@@ -35,6 +35,9 @@ def log_to_mqtt_payload(log_line, id="urn:uni-bremen:bik:wio:0:1:msb:0001"):
     }
 
     """
+    time = log_line.split(",")[0]
+    time = time.split("[")[1]
+    acc_x = log_line.split(",")[2].strip()
     dict = {
         "content-spec": "urn:spec://eclipse.org/unide/measurement-message#v3",
         "device": {
@@ -47,13 +50,13 @@ def log_to_mqtt_payload(log_line, id="urn:uni-bremen:bik:wio:0:1:msb:0001"):
                 "unit": "m s-2"
                 }
             },
-            "ts": "2021-05-18T07:43:16.969Z",
+            "ts": time,
             "series": {
                 "time": [
                 0
                 ],
-                "temperature": [
-                log_line[9:28:1]
+                "acceleration": [
+                acc_x
                 ]
             }
             }
@@ -64,12 +67,13 @@ def log_to_mqtt_payload(log_line, id="urn:uni-bremen:bik:wio:0:1:msb:0001"):
 
 
 # Print log file.
+send_n_lines = 2
 file1 = open("test.log", "r")
 Lines = file1.readlines()
 count = 0
 for count, line in enumerate(Lines):
     print("Line {}: {}".format(count + 1, line.strip())) # Strips the newline character.
-    if count >= 10:
+    if count >= send_n_lines - 1:
         break
 print("Successfully printed the logfile.")
 
@@ -85,8 +89,9 @@ client.loop_start()
 # Publish data
 for count, line in enumerate(Lines):
     payload = log_to_mqtt_payload(line.strip())
+    print(payload)
     client.publish(topic=topic, payload="count " + str(count) + " " + payload)
-    if count >= 10:
+    if count >= send_n_lines - 1:
         break
 
 client.loop_stop()

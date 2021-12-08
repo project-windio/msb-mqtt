@@ -1,0 +1,24 @@
+{
+    "content-spec": "urn:spec://eclipse.org/unide/measurement-message#v3",
+    "device": {
+        "id": "urn:uni-bremen:bik:wio:0:1:msb:0001"
+    },
+    "measurements": [
+        {
+            "context": {
+                "acceleration in x": {
+                    "unit": "m s-2"
+                }
+            },
+            "ts": "1630586954.3600352",
+            "series": {
+                "time": [
+                    0
+                ],
+                "acceleration": [
+                    "-0.02606201171875"
+                ]
+            }
+        }
+    ]
+}
