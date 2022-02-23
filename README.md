@@ -1,4 +1,4 @@
-# MQTT client for the motion sensor box
+# MQTT client for Motion Sensor Box in project WindIO
 
 In the project WindIO measurements are conducted using motion sensor boxes. They send their data to a digital twin using the MQTT protocol.
 
