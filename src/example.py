@@ -6,7 +6,7 @@ from datetime import datetime
 
 from login_details import url, port, user, password, topic
 
-def log_to_mqtt_payload(log_line, id="urn:uni-bremen:bik:wio:0:1:msb:0001"):
+def log_to_mqtt_payload(log_line, id="urn:uni-bremen:bik:wio:1:1:nacs:0001"):
     """
     Creates a WindIO MQTT payload based on a motion sensor box log file line.
 
@@ -95,6 +95,7 @@ for count, line in enumerate(Lines):
 #print("Successfully printed the logfile.")
 
 client = mqtt.Client()
+print("Working with user: " + user)
 client.username_pw_set(user, password)
 client.connect(url, port)
 print("Successfully connected.")
