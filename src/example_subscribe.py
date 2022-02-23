@@ -3,7 +3,8 @@
 
 import paho.mqtt.client as paho
 
-from login_details import url, port, user, password, topic
+from login_details import url, port, user, password
+from example import topic
 
 def on_subscribe(client, userdata, mid, granted_qos):
     print("Subscribed: "+str(mid)+" "+str(granted_qos))

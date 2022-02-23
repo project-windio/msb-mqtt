@@ -4,9 +4,14 @@ import json
 import pytz
 from datetime import datetime
 
-from login_details import url, port, user, password, topic
+from login_details import url, port, user, password
 
-def log_to_mqtt_payload(log_line, id="urn:uni-bremen:bik:wio:1:1:nacs:0001"):
+# Set IDs and topic according to the WindIO specification.
+edge_id = "urn:uni-bremen:bik:wio:1:1:msb:0001" # MSB in Krogmann nacelle (gateway)
+device_id = "urn:uni-bremen:bik:wio:1:1:nacs:0001" # Acceleration of MSB in Krogmann nacelle
+topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
+
+def log_to_mqtt_payload(log_line, id=None):
     """
     Creates a WindIO MQTT payload based on a motion sensor box log file line.
 
@@ -43,6 +48,7 @@ def log_to_mqtt_payload(log_line, id="urn:uni-bremen:bik:wio:1:1:nacs:0001"):
     acc_x = log_line.split(",")[2].strip()
     acc_y = log_line.split(",")[3].strip()
     acc_z = log_line.split(",")[4].strip()
+    g = 9.81 # Acceleration due to gravity.
     dict = {
         "content-spec": "urn:spec://eclipse.org/unide/measurement-message#v3",
         "device": {
@@ -67,13 +73,13 @@ def log_to_mqtt_payload(log_line, id="urn:uni-bremen:bik:wio:1:1:nacs:0001"):
                 0
                 ],
                 "acc_x": [
-                    acc_x
+                    float(acc_x) / g
                 ],
                 "acc_y": [
-                    acc_y
+                    float(acc_y) / g
                 ],
                 "acc_z": [
-                    acc_z
+                    float(acc_z) / g
                 ]
             }
             }
@@ -84,7 +90,7 @@ def log_to_mqtt_payload(log_line, id="urn:uni-bremen:bik:wio:1:1:nacs:0001"):
 
 
 # Print log file.
-send_n_lines = 2
+send_n_lines = 5
 file1 = open("test.log", "r")
 Lines = file1.readlines()
 count = 0
@@ -108,10 +114,10 @@ client.loop_start()
 # Publish data
 print("topic: " + topic)
 for count, line in enumerate(Lines):
-    payload = log_to_mqtt_payload(line.strip())
+    payload = log_to_mqtt_payload(line.strip(), device_id)
     print("payload:")
     print(payload)
-    client.publish(topic=topic, payload="count " + str(count) + " " + payload)
+    client.publish(topic, payload)
     if count >= send_n_lines - 1:
         break
 
