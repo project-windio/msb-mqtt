@@ -108,7 +108,7 @@ except Exception as e:
     logging.fatal(f'Failed to bind to zeromq socket: {e}')
     sys.exit(-1)
 
-# Let fusionlog subscribe to all available data.
+# Subscribe to all available data.
 zmq_socket.setsockopt(zmq.SUBSCRIBE, b'')
 
 print('Successfully bound to zeroMQ receiver socket as subscriber')
@@ -119,8 +119,10 @@ while True:
     try:
         print('Trying to receive data.')
         (zmq_topic, data) = zmq_socket.recv_multipart()
+        zmq_topic = zmq_topic.decode('utf-8')
         data = pickle.loads(data)
         print(f'Received first data: {data}')
+        print(f'From topic: {zmq_topic}')
         break
     except KeyboardInterrupt:
         print('Interrupted!')
