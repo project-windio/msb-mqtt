@@ -114,6 +114,8 @@ zmq_socket.setsockopt(zmq.SUBSCRIBE, b'')
 print('Successfully bound to zeroMQ receiver socket as subscriber')
 
 
+is_first_data = True
+
 while True:
     print('Entered the infinite loop.')
     try:
@@ -121,19 +123,27 @@ while True:
         (zmq_topic, data) = zmq_socket.recv_multipart()
         zmq_topic = zmq_topic.decode('utf-8')
         data = pickle.loads(data)
-        print(f'Received first data: {data}')
-        print(f'From topic: {zmq_topic}')
-        break
+        if is_first_data:
+            print(f'Received first data: {data}')
+            print(f'From topic: {zmq_topic}')
+            is_first_data = False
+        if zmq_topic == 'imu':
+            print(f'Will send data via MQTT: {data}')
+            payload = create_mqtt_payload(unix_epoch=data[0], acc_x=data[2], acc_y=data[3], acc_z=data[4])
+            client.publish(mqtt_topic, payload)
+        else:
+            print(f'Only use topic "imu" is used, however I received data on topic: {zmq_topic}')
+        continue
     except KeyboardInterrupt:
+        client.loop_stop()
         print('Interrupted!')
     #except Exception as e:
     #    print(f'Failed to receive message: {e} ({topic} : {data})')
     #    continue
 
-payload = create_mqtt_payload(unix_epoch=data[0], acc_x=data[2], acc_y=data[3], acc_z=data[4])
-client.publish(mqtt_topic, payload)
 
 
-client.loop_stop()
 
-#client.close()
+
+
+
