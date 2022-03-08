@@ -10,7 +10,7 @@ from example_send_logfile.login_details import url, port, user, password
 # Set IDs and topic according to the WindIO specification.
 edge_id = "urn:uni-bremen:bik:wio:1:1:msb:0001" # MSB in Krogmann nacelle (gateway)
 device_id = "urn:uni-bremen:bik:wio:1:1:nacs:0001" # Acceleration of MSB in Krogmann nacelle
-topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
+mqtt_topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
 
 def create_mqtt_payload(unix_epoch=0, acc_x=0, acc_y=0, acc_z=0, id=None):
     """
@@ -118,7 +118,7 @@ while True:
     print('Entered the infinite loop.')
     try:
         print('Trying to receive data.')
-        (topic, data) = zmq_socket.recv_multipart()
+        (zmq_topic, data) = zmq_socket.recv_multipart()
         data = pickle.loads(data)
         print(f'Received first data: {data}')
         break
@@ -129,7 +129,7 @@ while True:
     #    continue
 
 payload = create_mqtt_payload(unix_epoch=data[0], acc_x=data[2], acc_y=data[3], acc_z=data[4])
-client.publish(topic, payload)
+client.publish(mqtt_topic, payload)
 
 
 client.loop_stop()
