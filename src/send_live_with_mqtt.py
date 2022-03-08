@@ -116,10 +116,9 @@ print('Successfully bound to zeroMQ receiver socket as subscriber')
 
 is_first_data = True
 
+print('Trying to receive data.')
 while True:
-    print('Entered the infinite loop.')
     try:
-        print('Trying to receive data.')
         (zmq_topic, data) = zmq_socket.recv_multipart()
         zmq_topic = zmq_topic.decode('utf-8')
         data = pickle.loads(data)
