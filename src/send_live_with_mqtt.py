@@ -117,8 +117,8 @@ print('Successfully bound to zeroMQ receiver socket as subscriber')
 is_first_data = True
 
 print('Trying to receive data.')
-while True:
-    try:
+try:
+    while True:
         (zmq_topic, data) = zmq_socket.recv_multipart()
         zmq_topic = zmq_topic.decode('utf-8')
         data = pickle.loads(data)
@@ -133,12 +133,13 @@ while True:
         else:
             print(f'Only use topic "imu" is used, however I received data on topic: {zmq_topic}')
         continue
-    except KeyboardInterrupt:
-        client.loop_stop()
-        print('Interrupted!')
-    #except Exception as e:
-    #    print(f'Failed to receive message: {e} ({topic} : {data})')
-    #    continue
+except KeyboardInterrupt:
+    client.loop_stop()
+    print('Interrupted!')
+    pass
+#except Exception as e:
+#    print(f'Failed to receive message: {e} ({topic} : {data})')
+#    continue
 
 
 
