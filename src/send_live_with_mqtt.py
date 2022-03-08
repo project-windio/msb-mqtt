@@ -12,7 +12,7 @@ edge_id = "urn:uni-bremen:bik:wio:1:1:msb:0001" # MSB in Krogmann nacelle (gatew
 device_id = "urn:uni-bremen:bik:wio:1:1:nacs:0001" # Acceleration of MSB in Krogmann nacelle
 topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
 
-def log_to_mqtt_payload(log_line, id=None):
+def create_mqtt_payload(unix_epoch=0, acc_x=0, acc_y=0, acc_z=0, id=None):
     """
     Creates a WindIO MQTT payload based on a motion sensor box log file line.
 
@@ -43,12 +43,7 @@ def log_to_mqtt_payload(log_line, id=None):
     }
 
     """
-    time = log_line.split(",")[0]
-    time = time.split("[")[1]
-    time = datetime.fromtimestamp(float(time), tz=pytz.utc).isoformat()
-    acc_x = log_line.split(",")[2].strip()
-    acc_y = log_line.split(",")[3].strip()
-    acc_z = log_line.split(",")[4].strip()
+    time = datetime.fromtimestamp(float(unix_epoch), tz=pytz.utc).isoformat()
     g = 9.81 # Acceleration due to gravity.
     dict = {
         "content-spec": "urn:spec://eclipse.org/unide/measurement-message#v3",
@@ -133,7 +128,7 @@ while True:
     #    print(f'Failed to receive message: {e} ({topic} : {data})')
     #    continue
 
-payload = 'Test'
+payload = create_mqtt_payload(unix_epoch=data[0], acc_x=data[2], acc_y=data[3], acc_z=data[4])
 client.publish(topic, payload)
 
 
