@@ -73,13 +73,13 @@ def log_to_mqtt_payload(log_line, id=None):
                 0
                 ],
                 "acc_x": [
-                    float(acc_x) / g
+                    float(acc_x) * g
                 ],
                 "acc_y": [
-                    float(acc_y) / g
+                    float(acc_y) * g
                 ],
                 "acc_z": [
-                    float(acc_z) / g
+                    float(acc_z) * g
                 ]
             }
             }

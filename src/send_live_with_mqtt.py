@@ -69,13 +69,13 @@ def create_mqtt_payload(unix_epoch=0, acc_x=0, acc_y=0, acc_z=0, id=None):
                 0
                 ],
                 "acc_x": [
-                    float(acc_x) / g
+                    float(acc_x) * g
                 ],
                 "acc_y": [
-                    float(acc_y) / g
+                    float(acc_y) * g
                 ],
                 "acc_z": [
-                    float(acc_z) / g
+                    float(acc_z) * g
                 ]
             }
             }
