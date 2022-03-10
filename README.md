@@ -29,8 +29,14 @@ Install the requirements:
 pip install -r requirements.txt
 ```
 
+Adapt the config to fit the specific sensor box by opening the JSON config file:
+
+```
+nano src/msb_mqtt.json
+```
+
 ## Run the client
 
 ```
-python src/send_live_with_mqtt.py
+python src/msb_mqtt.py
 ```
