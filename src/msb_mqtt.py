@@ -8,6 +8,8 @@ import zmq, sys, logging, pickle
 from login_details import url, port, user, password
 
 # Set IDs and topic according to the WindIO specification.
+#edge_id = "urn:uni-bremen:bik:wio:1:1:msb:0003" # MSB in Krogmann tower (gateway)
+#device_id = "urn:uni-bremen:bik:wio:1:1:tows:0002" # Acceleration of MSB in Krogmann tower
 edge_id = "urn:uni-bremen:bik:wio:1:1:msb:0001" # MSB in Krogmann nacelle (gateway)
 device_id = "urn:uni-bremen:bik:wio:1:1:nacs:0001" # Acceleration of MSB in Krogmann nacelle
 mqtt_topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
