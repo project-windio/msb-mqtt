@@ -1,18 +1,7 @@
 import paho.mqtt.client as mqtt
 from paho.mqtt.client import ssl as mqtt_ssl
-import json
-import pytz
+import pytz, zmq, sys, logging, pickle, json
 from datetime import datetime
-import zmq, sys, logging, pickle
-
-from login_details import url, port, user, password
-
-# Set IDs and topic according to the WindIO specification.
-#edge_id = "urn:uni-bremen:bik:wio:1:1:msb:0003" # MSB in Krogmann tower (gateway)
-#device_id = "urn:uni-bremen:bik:wio:1:1:tows:0002" # Acceleration of MSB in Krogmann tower
-edge_id = "urn:uni-bremen:bik:wio:1:1:msb:0001" # MSB in Krogmann nacelle (gateway)
-device_id = "urn:uni-bremen:bik:wio:1:1:nacs:0001" # Acceleration of MSB in Krogmann nacelle
-mqtt_topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
 
 def create_mqtt_payload(unix_epoch=0, acc_x=0, acc_y=0, acc_z=0, id=None):
     """
@@ -85,6 +74,21 @@ def create_mqtt_payload(unix_epoch=0, acc_x=0, acc_y=0, acc_z=0, id=None):
     }
     payload = json.dumps(dict, indent=4) 
     return payload
+
+
+
+with open('msb_mqtt.json') as json_file:
+    config = json.load(json_file)
+    print(config)
+    user = config['user']
+    password = config['password']
+    url = config['url']
+    port = config['port']
+    edge_id = config['edge_id']
+    device_id = config['device_id']
+    mqtt_topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
+    
+
 
 client = mqtt.Client()
 print("Working with user: " + user)
