@@ -3,7 +3,7 @@
     "url": "windio-contact.northeurope.cloudapp.azure.com",
     "port": 1883,
     "user": "urn:uni-bremen:bik:wio:1:1:xxxx:0001@3",
-    "password": "xxx",
+    "password": "xxxxxx",
     "edge_id": "urn:uni-bremen:bik:wio:1:1:xxx:0001",
     "device_id": "urn:uni-bremen:bik:wio:1:1:xxxx:0001"
 }

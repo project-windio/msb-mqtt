@@ -76,7 +76,7 @@ def create_mqtt_payload(unix_epoch=0, acc_x=0, acc_y=0, acc_z=0, id=None):
     return payload
 
 
-
+# Read config.
 with open('msb_mqtt.json') as json_file:
     config = json.load(json_file)
     print(config)
@@ -88,8 +88,6 @@ with open('msb_mqtt.json') as json_file:
     device_id = config['device_id']
     mqtt_topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
     
-
-
 client = mqtt.Client()
 print("Working with user: " + user)
 client.username_pw_set(user, password)

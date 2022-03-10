@@ -3,14 +3,7 @@ from paho.mqtt.client import ssl as mqtt_ssl
 import json
 import pytz
 from datetime import datetime
-import sys, os.path
-sys.path.append(os.path.abspath('../'))
-from login_details import url, port, user, password
-
-# Set IDs and topic according to the WindIO specification.
-edge_id = "urn:uni-bremen:bik:wio:1:1:msb:0001" # MSB in Krogmann nacelle (gateway)
-device_id = "urn:uni-bremen:bik:wio:1:1:nacs:0001" # Acceleration of MSB in Krogmann nacelle
-topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
+import os.path
 
 def log_to_mqtt_payload(log_line, id=None):
     """
@@ -90,6 +83,20 @@ def log_to_mqtt_payload(log_line, id=None):
     return payload
 
 
+# Read config.
+
+with open(os.path.dirname(__file__) + '/../msb_mqtt.json') as json_file:
+    config = json.load(json_file)
+    print('Working with config:')
+    print(config)
+    user = config['user']
+    password = config['password']
+    url = config['url']
+    port = config['port']
+    edge_id = config['edge_id']
+    device_id = config['device_id']
+    mqtt_topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
+
 # Print log file.
 send_n_lines = 5
 file1 = open("test.log", "r")
@@ -113,12 +120,12 @@ client.tls_set_context(mqtt_ssl.create_default_context())
 client.loop_start()
 
 # Publish data
-print("topic: " + topic)
+print("topic: " + mqtt_topic)
 for count, line in enumerate(Lines):
     payload = log_to_mqtt_payload(line.strip(), device_id)
     print("payload:")
     print(payload)
-    client.publish(topic, payload)
+    client.publish(mqtt_topic, payload)
     if count >= send_n_lines - 1:
         break
 
