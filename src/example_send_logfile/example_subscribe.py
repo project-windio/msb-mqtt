@@ -2,7 +2,8 @@
 # See example titled "Subscribe"
 
 import paho.mqtt.client as paho
-
+import sys, os.path
+sys.path.append(os.path.abspath('../'))
 from login_details import url, port, user, password
 from example import topic
 

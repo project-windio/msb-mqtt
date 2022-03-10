@@ -3,7 +3,8 @@ from paho.mqtt.client import ssl as mqtt_ssl
 import json
 import pytz
 from datetime import datetime
-
+import sys, os.path
+sys.path.append(os.path.abspath('../'))
 from login_details import url, port, user, password
 
 # Set IDs and topic according to the WindIO specification.

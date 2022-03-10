@@ -3,9 +3,9 @@ from paho.mqtt.client import ssl as mqtt_ssl
 import json
 import pytz
 from datetime import datetime
-import zmq, socket, sys, logging, pickle
+import zmq, sys, logging, pickle
 
-from example_send_logfile.login_details import url, port, user, password
+from login_details import url, port, user, password
 
 # Set IDs and topic according to the WindIO specification.
 edge_id = "urn:uni-bremen:bik:wio:1:1:msb:0001" # MSB in Krogmann nacelle (gateway)
