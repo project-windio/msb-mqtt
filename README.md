@@ -40,3 +40,9 @@ nano src/msb_mqtt.json
 ```
 python src/msb_mqtt.py
 ```
+
+To keep it running when you quit ssh:
+
+```
+nohup src/msb_mqtt.py &
+```
