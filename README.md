@@ -32,5 +32,5 @@ pip install -r requirements.txt
 ## Run the client
 
 ```
-python send_live_with_mqtt.py
+python src/send_live_with_mqtt.py
 ```
