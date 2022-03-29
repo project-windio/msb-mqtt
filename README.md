@@ -3,6 +3,7 @@
 In the project WindIO measurements are conducted using motion sensor boxes. They send their data to a digital twin using the MQTT protocol.
 
 WindIO's digital twin is being developed at https://github.com/project-windio/wt-digital-twin .
+
 Motion Sensor Box is an open-source design: https://github.com/flucto-gmbh/motion-sensor-box
 
 ## Concept of client
