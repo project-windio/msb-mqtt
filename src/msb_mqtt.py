@@ -2,6 +2,7 @@ import paho.mqtt.client as mqtt
 from paho.mqtt.client import ssl as mqtt_ssl
 import pytz, zmq, sys, logging, pickle, json
 from datetime import datetime
+from os import path
 
 def create_mqtt_payload(unix_epoch=0, acc_x=0, acc_y=0, acc_z=0, id=None):
     """
@@ -77,7 +78,7 @@ def create_mqtt_payload(unix_epoch=0, acc_x=0, acc_y=0, acc_z=0, id=None):
 
 
 # Read config.
-with open('msb_mqtt.json') as json_file:
+with open(path.join("src", "msb_mqtt.json")) as json_file:
     config = json.load(json_file)
     print(config)
     user = config['user']
