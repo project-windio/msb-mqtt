@@ -18,7 +18,7 @@ This issue describes the idea: https://github.com/flucto-gmbh/motion-sensor-box/
 
 ## Installation on sensor box
 
-Clone the package:
+Clone the package (preferred location: motion-sensor-box/src/mqtt):
 
 ```
 git clone https://github.com/ahaselsteiner/mqtt-client-msb.git
