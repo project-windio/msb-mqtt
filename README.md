@@ -10,7 +10,7 @@ Motion Sensor Box is an open-source design: https://github.com/flucto-gmbh/motio
 
 Motion Sensor Box uses ZMQ for internal datastreams.
 
-The MQTT client  listen to ZMQ to receive live data and sends them via MQTT to the WindIO broker.
+The MQTT client  listens to ZMQ to receive live data and sends them via MQTT to the WindIO broker.
 
 An example payload is shown in [example_payload.json](example_payload.json).
 
