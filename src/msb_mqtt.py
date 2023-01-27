@@ -93,7 +93,7 @@ with open(path.join("src", "msb_mqtt.json")) as json_file:
 client = mqtt.Client()
 print("Working with user: " + user)
 client.username_pw_set(user, password)
-client.connect(url, port=port, keepalive=0)
+client.connect(url, port=port, keepalive=60*60*12)
 print("Successfully connected.")
 client.tls_set_context(mqtt_ssl.create_default_context())
 client.loop_start()
