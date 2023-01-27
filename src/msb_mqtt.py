@@ -88,6 +88,7 @@ with open(path.join("src", "msb_mqtt.json")) as json_file:
     edge_id = config['edge_id']
     device_id = config['device_id']
     mqtt_topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
+    do_print = config['print']
     
 client = mqtt.Client()
 print("Working with user: " + user)
@@ -132,7 +133,8 @@ try:
             print(f'From topic: {zmq_topic}')
             is_first_data = False
         if zmq_topic == 'imu':
-            print(f'Will send data via MQTT: {data}')
+            if do_print:
+                print(f'Will send data via MQTT: {data}')
             payload = create_mqtt_payload(unix_epoch=data[0], acc_x=data[2], acc_y=data[3], acc_z=data[4])
             client.publish(mqtt_topic, payload)
         else:
