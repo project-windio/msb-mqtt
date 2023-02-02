@@ -125,7 +125,7 @@ is_first_data = True
 print('Trying to receive data.')
 try:
     while True:
-        (zmq_topic, data) = zmq_socket.recv_multipart()
+        (zmq_topic, data) = zmq_socket.recv_multipart(flags=zmq.NOBLOCK)
         zmq_topic = zmq_topic.decode('utf-8')
         data = pickle.loads(data)
         if is_first_data:
