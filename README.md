@@ -57,10 +57,14 @@ To check wheter msb_mqtt.py is running type:
 ps -ef
 ```
 
-You man run intro problems if the MSB SD card runs full.
+You may run intro problems if the MSB SD card runs full.
 
-You can make new room by deleting log files located in home/pi/msb_data. You may want to copy them first by typing
+You can make new room by deleting log files located in home/pi/msb_data.
+
+You may want to copy them first by typing
 
 ```
 scp -i "LOCATION\TO\.ssh\ssh_key\msb_key" pi@msb-0003-a.local:/home/pi/msb_data/MSB-0003-A/msb-0003-a_20220703* "C:\LOCATION\TO\log-files"
 ```
+
+Consider not running the fusion log service which creates these log files if you are ok with only storing files on the MQTT remote server.
