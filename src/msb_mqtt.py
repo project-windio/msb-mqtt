@@ -79,7 +79,7 @@ def create_mqtt_payload(unix_epoch=0, acc_x=0, acc_y=0, acc_z=0, id=None):
     return payload
 
 # The  complete script is restarted in regular intervals
-restart_after_seconds = 5
+restart_after_seconds = 60
 
 while True:
     elapsed_time_seconds = 0
