@@ -138,7 +138,7 @@ try:
             payload = create_mqtt_payload(unix_epoch=data[0], acc_x=data[2], acc_y=data[3], acc_z=data[4])
             client.publish(mqtt_topic, payload)
         else:
-            print(f'Only use topic "imu" is used, however I received data on topic: {zmq_topic}')
+            print(f'Only topic "imu" is used, however I received data on topic: {zmq_topic}')
         continue
 except KeyboardInterrupt:
     client.loop_stop()
