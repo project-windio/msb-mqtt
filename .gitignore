@@ -1,5 +1,9 @@
 *login_details.py
+*login.json
 *contact.json
+
+# Certifacte files
+*.pem
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

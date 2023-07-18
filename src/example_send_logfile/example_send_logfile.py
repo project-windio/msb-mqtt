@@ -83,8 +83,7 @@ def log_to_mqtt_payload(log_line, id=None):
     return payload
 
 
-# Read config.
-
+# Read the config.
 with open(os.path.dirname(__file__) + '/../msb_mqtt.json') as json_file:
     config = json.load(json_file)
     print('Working with config:')
@@ -115,8 +114,6 @@ client.connect(url, port)
 print("Successfully connected.")
 client.tls_set_context(mqtt_ssl.create_default_context())
 
-
-
 client.loop_start()
 
 # Publish data
@@ -130,5 +127,4 @@ for count, line in enumerate(Lines):
         break
 
 client.loop_stop()
-
 #client.close()
