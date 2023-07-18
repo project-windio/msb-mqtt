@@ -1,6 +1,9 @@
 # MQTT client for the motion sensor box
 
-In this example data from the MSB logfile are sent.
+In these examples data from the MSB logfile are sent.
+
+example_send_logfile.py sends data to the Contact broker.
+example_with_certificae.py sends data to the BIBA broker using certificates.
 
 ## Format of log file
 ### IMU

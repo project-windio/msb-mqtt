@@ -1,6 +1,8 @@
 import paho.mqtt.client as mqtt
 import json
 import os.path
+from utils import log_to_mqtt_payload
+from os.path import dirname, abspath
 
 
 def on_connect(client, userdata, flags, rc):
@@ -33,4 +35,32 @@ client.username_pw_set(user, password)
 
 client.connect(host=url, port=port, keepalive=60)
 
-client.loop_forever()
+client.loop_start()
+
+# Load data.
+file_path = dirname(dirname(abspath(__file__)))
+file1 = open("test.log", "r")
+Lines = file1.readlines()
+send_n_lines = 5
+
+# Print data.
+count = 0
+for count, line in enumerate(Lines):
+    print("Line {}: {}".format(count + 1, line.strip())) # Strips the newline character.
+    if count >= send_n_lines - 1:
+        break
+print("Successfully printed the logfile.")
+
+# Publish data.
+mqtt_topic = "Example topic"
+device_id = "424242"
+print("topic: " + mqtt_topic)
+for count, line in enumerate(Lines):
+    payload = log_to_mqtt_payload(line.strip(), device_id)
+    print("payload:")
+    print(payload)
+    client.publish(mqtt_topic, payload)
+    if count >= send_n_lines - 1:
+        break
+
+client.loop_end()
