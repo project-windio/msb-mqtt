@@ -18,13 +18,13 @@ with open(os.path.dirname(__file__) + '/../msb_mqtt.json') as json_file:
     device_id = config['device_id']
     mqtt_topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
 
+# Establish MQTT connection.
 client = mqtt.Client()
 print("Working with user: " + user)
 client.username_pw_set(user, password)
 client.connect(url, port)
 print("Successfully connected.")
 client.tls_set_context(mqtt_ssl.create_default_context())
-
 client.loop_start()
 
 # Load data.
