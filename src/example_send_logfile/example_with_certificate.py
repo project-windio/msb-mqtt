@@ -62,4 +62,4 @@ for count, line in enumerate(lines):
     if count >= send_n_lines - 1:
         break
 
-client.loop_end()
+client.loop_stop()
