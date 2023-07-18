@@ -38,14 +38,13 @@ client.connect(host=url, port=port, keepalive=60)
 client.loop_start()
 
 # Load data.
-file_path = dirname(dirname(abspath(__file__)))
-file1 = open("test.log", "r")
-Lines = file1.readlines()
+file = open(os.path.dirname(__file__) + "/test.log", "r")
+lines = file.readlines()
 send_n_lines = 5
 
 # Print data.
 count = 0
-for count, line in enumerate(Lines):
+for count, line in enumerate(lines):
     print("Line {}: {}".format(count + 1, line.strip())) # Strips the newline character.
     if count >= send_n_lines - 1:
         break
@@ -55,7 +54,7 @@ print("Successfully printed the logfile.")
 mqtt_topic = "Example topic"
 device_id = "424242"
 print("topic: " + mqtt_topic)
-for count, line in enumerate(Lines):
+for count, line in enumerate(lines):
     payload = log_to_mqtt_payload(line.strip(), device_id)
     print("payload:")
     print(payload)
