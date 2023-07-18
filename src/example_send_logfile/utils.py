@@ -36,6 +36,7 @@ def log_to_mqtt_payload(log_line, id=None):
     time = log_line.split(",")[0]
     time = time.split("[")[1]
     time = datetime.fromtimestamp(float(time), tz=pytz.utc).isoformat()
+    #time = time.replace('+00:00', 'Z')
     acc_x = log_line.split(",")[2].strip()
     acc_y = log_line.split(",")[3].strip()
     acc_z = log_line.split(",")[4].strip()
