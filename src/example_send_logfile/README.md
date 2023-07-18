@@ -9,7 +9,7 @@ example_with_certificae.py sends data to the BIBA broker using certificates.
 ## Format of log file
 ### IMU
 imu: [unix epoch, uptime in seconds, accx, accy, accz, rotx_speed, roty_speed, rotz_speed, magnet_fieldx, magnet_fieldy, magnet_fieldz]
-unit: [X, s, m/s2, m/s2, m/s2, deg/s, deg/s, deg/s, mu tesla, mu tesla, mu tesla]
+unit: [X, s, g, g, g, deg/s, deg/s, deg/s, mu tesla, mu tesla, mu tesla]
 
 
 ### GPS
