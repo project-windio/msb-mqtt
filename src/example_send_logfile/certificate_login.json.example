@@ -1,0 +1,10 @@
+{
+    "user": "xxx",
+    "password": "xxx",
+    "url": "mqtt.brementestturbine.science",
+    "port": 8883,
+    "biba_server_url": "http://srv11.ikap.biba.uni-bremen.de:8086/",
+    "biba_server_username": "xxx",
+    "biba_server_password": "xxx",
+    "comment": "biba_server_url, biba_server_username and biba_server_password are not used by the client. These credentials can be used by end users to login manually."
+}
