@@ -27,6 +27,9 @@ with open(os.path.dirname(__file__) + '/certificate_login.json') as json_file:
     password = config['password']
     url = config['url']
     port = config['port']
+    edge_id = config['edge_id']
+    device_id = config['device_id']
+    mqtt_topic = "ppmpv3/3/DDATA/" + edge_id + "/" + device_id
 
 
 client.tls_set(os.path.dirname(__file__) + "/server.pem", os.path.dirname(__file__) + "/client-cert-bikbox.pem",
@@ -51,8 +54,7 @@ for count, line in enumerate(lines):
 print("Successfully printed the logfile.")
 
 # Publish data.
-mqtt_topic = "Example topic"
-device_id = "424242"
+#mqtt_topic = "test"
 print("topic: " + mqtt_topic)
 for count, line in enumerate(lines):
     payload = log_to_mqtt_payload(line.strip(), device_id)

@@ -1,8 +1,10 @@
 {
-    "user": "xxx",
-    "password": "xxx",
     "url": "mqtt.brementestturbine.science",
     "port": 8883,
+    "user": "xxx",
+    "password": "xxx",
+    "edge_id": "urn:uni-bremen:bik:wio:0:0:msb:xxxx",
+    "device_id": "urn:uni-bremen:bik:wio:0:0:msbi:xxxx",
     "biba_server_url": "http://srv11.ikap.biba.uni-bremen.de:8086/",
     "biba_server_username": "xxx",
     "biba_server_password": "xxx",
