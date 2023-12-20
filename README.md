@@ -45,6 +45,12 @@ python src/msb_mqtt.py
 To keep it running when you quit ssh:
 
 ```
+python src/msb_mqtt.py > /dev/null 2>&1 &
+```
+
+or
+
+```
 nohup python src/msb_mqtt.py &
 ```
 
