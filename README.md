@@ -21,7 +21,7 @@ This issue describes the idea: https://github.com/flucto-gmbh/motion-sensor-box/
 Clone the package (preferred location: motion-sensor-box/src/mqtt):
 
 ```
-git clone https://github.com/ahaselsteiner/mqtt-client-msb.git
+git clone https://github.com/project-windio/msb-mqtt.git
 ```
 
 Install the requirements:
